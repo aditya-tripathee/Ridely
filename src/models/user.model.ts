@@ -1,9 +1,10 @@
-import mongoose, { Document} from "mongoose";
+import mongoose, { Document } from "mongoose";
 
 interface UserInterface extends Document {
   name: string;
   email: string;
   password: string;
+  role: "user" | "partner" | "admin";
 }
 
 const userSchema = new mongoose.Schema<UserInterface>(
@@ -20,6 +21,11 @@ const userSchema = new mongoose.Schema<UserInterface>(
     password: {
       type: String,
       required: true,
+    },
+    role: {
+      type: String,
+      enum: ["user", "partner", "admin"],
+      default: "user",
     },
   },
   { timestamps: true },
